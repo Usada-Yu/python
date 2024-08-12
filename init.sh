@@ -10,6 +10,9 @@ script_path=$(readlink -f "$0")
 script_dir=$(dirname "$script_path")
 project_dir=${script_dir}
 
+# 无法访问pypi.org时使用的代理地址
+mirror_url="mirrors.aliyun.com"
+
 # 错误处理 #
 error_deal() {
     echo -e "\033[0;31mAn error occurred when the script was triggered manually, the script will exit...\033[0m"
@@ -30,7 +33,13 @@ cd ${project_dir}/common/self-fileModule
 if [[ $(uname -s) == "Linux" ]]; then
     if command -v python3 &>/dev/null; then
         python3 ./setup.py sdist
-        pip3 install --upgrade ./dist/fileModule*.tar.gz
+        # 是否使用镜像代理，默认不使用
+        if true; then
+            pip3 install --upgrade ./dist/*.tar.gz
+        else
+            pip3 install --default-timeout=6666 --upgrade \
+                -i http://${mirror_url}/pypi/simple/ --trusted-host ${mirror_url} ./dist/*.tar.gz
+        fi
     elif command -v python &>/dev/null; then
         python ./setup.py sdist
         pip install --upgrade ./dist/fileModule*.tar.gz
