@@ -42,17 +42,17 @@ if [[ $(uname -s) == "Linux" ]]; then
         fi
     elif command -v python &>/dev/null; then
         python ./setup.py sdist
-        pip install --upgrade ./dist/fileModule*.tar.gz
+        pip install --upgrade ./dist/filemodule*.tar.gz
     else
         echo -e "\033[0;31mThere is no python in the environment\033[0m"
     fi
 else
     if [[ "" != $(python3 --version) ]]; then
         python3 ./setup.py sdist
-        pip3 install --upgrade ./dist/fileModule*.tar.gz
+        pip3 install --upgrade ./dist/filemodule*.tar.gz
     elif [[ "" != "$(python --version)" ]]; then
         python ./setup.py sdist
-        pip install --upgrade ./dist/fileModule*.tar.gz
+        pip install --upgrade ./dist/filemodule*.tar.gz
     else
         echo -e "\033[0;31mThere is no python in the environment\033[0m"
     fi
