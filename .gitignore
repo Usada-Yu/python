@@ -10,7 +10,5 @@ artifact
 __pycache__
 *.egg-info
 
-# common file
-*.docx
 # python file
 *.spec
